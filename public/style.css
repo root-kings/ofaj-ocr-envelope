@@ -1,0 +1,22 @@
+.form_ctn {
+  width: 90% !important;
+  font-family: "quicksand";
+}
+body {
+  background: linear-gradient(to right, rgb(32, 237, 250), rgb(23, 58, 161));
+}
+.main_card {
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow: 1.25rem 1.375rem 20px rgba(0, 0, 0, 0.275);
+}
+.sub_btn {
+  margin-top: 10px;
+  width: 50%;
+  border-radius: 15px !important;
+}
+
+#video {
+  width: 60px !important;
+  height: 60px !important;
+}
