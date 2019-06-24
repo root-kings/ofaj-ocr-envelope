@@ -28,13 +28,11 @@ io.on('connection', function (socket) {
     socket.on('capture', data => {
 
         let image = data.data
-        var time = moment().toString()
 
         var cleanedimage = image.replace(/^data:image\/\w+;base64,/, '')
-        var filename = `${__dirname}/${time}.png`
+        var filename = `${__dirname}/image.png`
 
         fs.writeFileSync(filename, cleanedimage, { encoding: 'base64' })
-        // .then(() => {
 
         let totaltext = []
 
@@ -44,8 +42,10 @@ io.on('connection', function (socket) {
                 console.log('progress', p)
             })
             .then(({ text }) => {
-                console.log(text)
-                totaltext.push(text.split('\n').filter(tx => tx != ''))
+                if (text && text != '') {
+                    console.log(text)
+                    totaltext.push(text.split('\n').filter(tx => tx != ''))
+                }
                 // worker.terminate()
             })
             .then(() => {
@@ -65,15 +65,15 @@ io.on('connection', function (socket) {
                 // console.log(totaltext)
                 console.log(finalobjct)
                 socket.emit('text detected', finalobjct)
-                //         })
-                // }).catch(err => {
-                //     if (err) {
-                //         socket.emit('error', err)
-                console.log(text)
-                //         consolee.error(err)
-                //     }
+
+                fs.unlinkSync(filename)
+
+            }).catch(err => {
+                socket.emit('error', err)
             })
     })
+    // .then(() => {
+
 
     socket.on('disconnect', () => {
         console.info('client disconnected')
