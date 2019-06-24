@@ -1,0 +1,24 @@
+{
+  "name": "ofaj-ocr-envelope",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start":"node app.js",
+    "dev":"nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pratik Pithore <pithore.pratik@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "autosize": "^4.0.2",
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "socket.io": "^2.2.0",
+    "tesseract.js": "^2.0.0-alpha.10",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
