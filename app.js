@@ -45,31 +45,30 @@ io.on('connection', function (socket) {
                 if (text && text != '') {
                     console.log(text)
                     totaltext.push(text.split('\n').filter(tx => tx != ''))
+
+                    totaltext = totaltext[0]
+
+                    let flg = totaltext[0] == 'To,' ? 'From,' : 'To,'
+
+                    totaltext = totaltext.join('\n').split(flg)
+
+                    totaltext[1] = flg + totaltext[1]
+
+                    let ind = flg == 'To,' ? 1 : 0
+                    let finalobjct = {
+                        to: totaltext[ind],
+                        from: totaltext[(ind + 1) % 2]
+                    }
+                    // console.log(totaltext)
+                    console.log(finalobjct)
+                    socket.emit('text detected', finalobjct)
+
+                    fs.unlinkSync(filename)
+                } else {
+                    socket.emit('text detected', { to: "error", from: "error" })
                 }
-                // worker.terminate()
-            })
-            .then(() => {
-                totaltext = totaltext[0]
-
-                let flg = totaltext[0] == 'To,' ? 'From,' : 'To,'
-
-                totaltext = totaltext.join('\n').split(flg)
-
-                totaltext[1] = flg + totaltext[1]
-
-                let ind = flg == 'To,' ? 1 : 0
-                let finalobjct = {
-                    to: totaltext[ind],
-                    from: totaltext[(ind + 1) % 2]
-                }
-                // console.log(totaltext)
-                console.log(finalobjct)
-                socket.emit('text detected', finalobjct)
-
-                fs.unlinkSync(filename)
-
             }).catch(err => {
-                socket.emit('error', err)
+                socket.emit('text detected', { to: "error", from: "error" })
             })
     })
     // .then(() => {
