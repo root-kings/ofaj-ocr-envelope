@@ -30,33 +30,33 @@
 								<div class="row">
 									<div class="input-field col s12 m12 l12">
 										<textarea name="toaddr" id="toaddr" class="materialize-textarea"
-											v-model="toaddr"></textarea>
+											v-model="to.address"></textarea>
 										<label for="toaddr" class="active">To</label>
 									</div>
 
 									<div class="input-field col s12 m12 l6">
-										<input type="text" name="topin" id="topin" v-model='topin'>
+										<input type="text" name="topin" id="topin" v-model='to.pin'>
 										<label for="topin">PIN1</label>
 									</div>
 
 									<div class="input-field col s12 m12 l6">
-										<input type="text" name="number1" id="mobile-number1" v-model='number1'>
+										<input type="text" name="number1" id="mobile-number1" v-model='to.phone'>
 										<label for="mobile-number1">Mobile number1</label>
 									</div>
 
 									<div class="input-field col s12 m12 l12">
 										<textarea name="fromaddr" id="fromaddr" class="materialize-textarea"
-											v-model="fromaddr"></textarea>
+											v-model="from.address"></textarea>
 										<label for="fromaddr" class="active">From</label>
 									</div>
 
 									<div class="input-field col s12 m12 l6">
-										<input type="text" name="frompin" id="frompin" v-model='frompin'>
+										<input type="text" name="frompin" id="frompin" v-model='from.pin'>
 										<label for="frompin">PIN2</label>
 									</div>
 
 									<div class="input-field col s12 m12 l6">
-										<input type="text" name="number2" id="mobile-number2" v-model='number2'>
+										<input type="text" name="number2" id="mobile-number2" v-model='from.phone'>
 										<label for="mobile-number2">Mobile number2</label>
 									</div>
 								</div>
@@ -83,14 +83,19 @@
 		var app = new Vue({
 			el: '#post_pass',
 			data: {
-				post: {
-					to: '',
-					topin: '',
-					from: '',
-					frompin: '',
-					telephone: '',
-					pastitems: []
-				}
+				to: {
+					address: '',
+					pin: '',
+					phone: ''
+				},
+				from: {
+					address: '',
+					pin: '',
+					phone: ''
+				},
+
+				pastitems: []
+
 			},
 
 			mounted: function () {
@@ -103,6 +108,13 @@
 				M.updateTextFields()
 			},
 
+			updated: function () {
+				M.updateTextFields()
+				M.textareaAutoResize(document.querySelector('#fromaddr'));
+				M.textareaAutoResize(document.querySelector('#toaddr'));
+
+			}
+			,
 			methods: {
 
 			}
@@ -138,10 +150,9 @@
 
 
 		socket.on('text detected', data => {
-			app.post.to = data.to
-			app.post.from = data.from
+			app.to.address = data.to
+			app.from.address = data.from
 
-			M.updateTextFields()
 		})
 
 

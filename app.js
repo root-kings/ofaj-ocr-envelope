@@ -37,7 +37,8 @@ io.on('connection', function (socket) {
         let totaltext = []
 
         worker
-            .recognize(filename)
+            .recognize(__dirname+'/envelope.png')
+            // .recognize(filename)
             .progress(p => {
                 console.log('progress', p)
             })
