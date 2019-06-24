@@ -282,4 +282,4 @@ $RECYCLE.BIN/
 
 ## Tesseract
 # *.traineddata
-pic/
+node_modules

@@ -1,137 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<script src="/socket.io.js"></script>
 
-		<title>Application Format</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<script src="/socket.io.js"></script>
 
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<title>Application Format</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 
-		<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-	</head>
+	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
 
-	<body class="blue">
-		<div class="container">
-			<div class="row">
-				<div class="col s12">
-					<div class="card-panel" id="post_pass">
-						<div class="row">
-							<h3 class="light center col s12">Application</h3>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+</head>
 
-							<div class="col s6">
-								<form action="#" method="post">
-									<div class="row">
-										<div class="input-field col s12 m12 l12">
-											<textarea name="to" id="textarea1" class="materialize-textarea" v-model="post.to" placeholder="To" style="height: 150px;"></textarea>
-											<label for="textarea1" class="active">To</label>
-										</div>
+<body class="blue">
+	<div class="container">
+		<div class="row">
+			<div class="col s12">
+				<div class="card-panel" id="post_pass">
+					<div class="row">
+						<h3 class="light center col s12">Application</h3>
 
-										<!-- <div class="input-field col s12 m12 l6">
-                                        <input type="text" name="pincode" id="pc" v-model='post.topin'>
-                                        <label for="pc">PIN1</label>
-                                    </div> -->
-
-										<div class="input-field col s12 m12 l12">
-											<textarea name="to" id="textarea2" class="materialize-textarea" v-model="post.from" placeholder="From" style="height: 150px;"></textarea>
-											<label for="textarea2" class="active">From</label>
-										</div>
-
-										<!-- <div class="input-field col s12 m12 l6">
-                                        <input type="tel" name="pin2" id="pin2" v-model='post.frompin'>
-                                        <label for="pin2">PIN2</label>
-                                    </div> -->
+						<div class="col s6">
+							<form action="#" method="post">
+								<div class="row">
+									<div class="input-field col s12 m12 l12">
+										<textarea name="toaddr" id="toaddr" class="materialize-textarea"
+											v-model="toaddr"></textarea>
+										<label for="toaddr" class="active">To</label>
 									</div>
-								</form>
-							</div>
 
-							<div class="col s6">
-								<video id="video" height="400px" width="400px"></video>
-								<canvas id="canvas" width="640px" height="480px" class="hide"></canvas>
+									<div class="input-field col s12 m12 l6">
+										<input type="text" name="topin" id="topin" v-model='topin'>
+										<label for="topin">PIN1</label>
+									</div>
 
-								<!-- <img src="/envelope2.png" alt="" style="width: 100%; border: 1px solid black"> -->
-								<!-- <div class="btn" id="detect" @click="fetchdata">Detect</div> -->
-								<div class="btn" id="detect">Detect</div>
-							</div>
+									<div class="input-field col s12 m12 l6">
+										<input type="text" name="number1" id="mobile-number1" v-model='number1'>
+										<label for="mobile-number1">Mobile number1</label>
+									</div>
+
+									<div class="input-field col s12 m12 l12">
+										<textarea name="fromaddr" id="fromaddr" class="materialize-textarea"
+											v-model="fromaddr"></textarea>
+										<label for="fromaddr" class="active">From</label>
+									</div>
+
+									<div class="input-field col s12 m12 l6">
+										<input type="text" name="frompin" id="frompin" v-model='frompin'>
+										<label for="frompin">PIN2</label>
+									</div>
+
+									<div class="input-field col s12 m12 l6">
+										<input type="text" name="number2" id="mobile-number2" v-model='number2'>
+										<label for="mobile-number2">Mobile number2</label>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<div class="col s6">
+							<video id="video" height="400px" width="400px"></video>
+							<canvas id="canvas" width="640px" height="480px" class="hide"></canvas>
+
+							<!-- <img src="/envelope2.png" alt="" style="width: 100%; border: 1px solid black"> -->
+							<!-- <div class="btn" id="detect" @click="fetchdata">Detect</div> -->
+							<div class="btn" id="detect">Detect</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-		<script>
-			var app = new Vue({
-				el: '#post_pass',
-				data: {
-					post: {
-						to: '',
-						topin: '',
-						from: '',
-						frompin: '',
-						telephone: '',
-						pastitems: []
-					}
-				},
-
-				mounted: function() {
-					M.AutoInit()
-					var instance = M.Carousel.init({
-						fullWidth: true,
-						indicators: true
-					})
-
-					M.updateTextFields()
-				},
-
-				methods: {
-					
+	<script>
+		var app = new Vue({
+			el: '#post_pass',
+			data: {
+				post: {
+					to: '',
+					topin: '',
+					from: '',
+					frompin: '',
+					telephone: '',
+					pastitems: []
 				}
-			})
+			},
 
-			var video = document.getElementById('video')
-
-			// Get access to the camera!
-			if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-				// Not adding `{ audio: true }` since we only want video now
-				navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-					video.srcObject = stream
-					video.play()
+			mounted: function () {
+				M.AutoInit()
+				var instance = M.Carousel.init({
+					fullWidth: true,
+					indicators: true
 				})
-			}
-
-			var get_url
-			var canvas = document.getElementById('canvas')
-			var context = canvas.getContext('2d')
-			var video = document.getElementById('video')
-
-			// Trigger photo take
-			document.getElementById('detect').addEventListener('click', function() {
-				// context.drawImage(video, 0, 0, 640, 480)
-				context.drawImage(video, 0, 0, 400, 350)
-				get_url = canvas.toDataURL()
-
-				socket.emit('capture', { data: get_url })
-			})
-
-			//client side
-			var socket = io.connect()
-
-
-			socket.on('text detected', data => {
-				app.post.to = data.to
-				app.post.from = data.from
 
 				M.updateTextFields()
-			})
+			},
 
-			
-		</script>
-	</body>
+			methods: {
+
+			}
+		})
+
+		var video = document.getElementById('video')
+
+		// Get access to the camera!
+		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			// Not adding `{ audio: true }` since we only want video now
+			navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+				video.srcObject = stream
+				video.play()
+			})
+		}
+
+		var get_url
+		var canvas = document.getElementById('canvas')
+		var context = canvas.getContext('2d')
+		var video = document.getElementById('video')
+
+		// Trigger photo take
+		document.getElementById('detect').addEventListener('click', function () {
+			// context.drawImage(video, 0, 0, 640, 480)
+			context.drawImage(video, 0, 0, 400, 350)
+			get_url = canvas.toDataURL()
+
+			socket.emit('capture', { data: get_url })
+		})
+
+		//client side
+		var socket = io.connect()
+
+
+		socket.on('text detected', data => {
+			app.post.to = data.to
+			app.post.from = data.from
+
+			M.updateTextFields()
+		})
+
+
+	</script>
+</body>
+
 </html>
