@@ -80,5 +80,5 @@ io.on('connection', function (socket) {
 })
 
 httpServer.listen(port, function () {
-    console.log('listening to request on port 4000')
+    console.log('listening to request on port ' + port)
 })
