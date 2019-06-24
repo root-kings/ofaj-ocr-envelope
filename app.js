@@ -31,7 +31,7 @@ io.on('connection', function (socket) {
         var time = moment().toString()
 
         var cleanedimage = image.replace(/^data:image\/\w+;base64,/, '')
-        var filename = `${__dirname}/pic/${time}.png`
+        var filename = `${__dirname}/${time}.png`
 
         fs.writeFileSync(filename, cleanedimage, { encoding: 'base64' })
         // .then(() => {
