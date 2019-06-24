@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 let Tesseract = require('tesseract.js').TesseractWorker
 
 
-const port = 4000
+const port = process.env.PORT || 3000
 
 
 const app = express()
